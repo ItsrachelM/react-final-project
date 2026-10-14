@@ -31,3 +31,14 @@
 >    - Task 8: Write at least 5 unit tests using Vitest (for filters, search, or helper functions).
 >    - Task 9: Clean up console logs, verify `npm run build` and `npm run dev` pass without errors.
 >    - Task 10: Finalize README.md and ensure PROMPTS.md is up to date.
+
+**18:03 · copilot**
+
+> Please create a TypeScript types file for our anime project.
+> 1. Create src/types/anime.ts containing interfaces for:
+>    - Anime item (id, title, synopsis, episodes, score, images with standard/large formats, genres, studios, trailer_url).
+>    - API response structure wrapper.
+> 2. Update tasks.md to mark the type definitions task as done.
+> 3. Update PROMPTS.md with a brief note of this prompt and action.
+
+Action note: Added Anime and Jikan response wrapper interfaces in `src/types/anime.ts`, and marked Task 1 done in `tasks.md`.
