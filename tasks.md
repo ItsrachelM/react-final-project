@@ -6,16 +6,16 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
   - Done when... TypeScript types describe the Jikan anime data used by the catalog, detail page, genres, studios, images, and optional fields without treating missing optional values as errors.
 
 - [x] **Task 2: Implement the Anime API service**
-  - Done when... a service module fetches catalog and per-anime detail data from Jikan API v4, checks unsuccessful responses, and exposes useful errors to the UI.
+  - Done when... a service module fetches catalog and per-anime detail data from Jikan API v4, spaces requests, retries transient failures, and falls back to a typed local catalog when the API is unavailable.
 
 - [x] **Task 3: Set up routes and shared layout**
   - Done when... React Router renders a shared layout with navigation and working Home, `/items/:id`, Favorites / Watchlist, and Statistics routes, including sensible handling for an unknown route.
 
 - [ ] **Task 4: Build the master list view**
-  - Done when... the Home page displays responsive anime cards with thumbnails, titles, genres, and ratings, and search and genre filters work together with loading, error, empty, and no-match states.
+  - Done when... the Home page displays responsive anime cards with thumbnails, titles, genres, and ratings, and search and genre filters work together with loading, error, empty, no-match, and offline fallback states.
 
-- [ ] **Task 5: Build the anime detail view**
-  - Done when... the detail page reads the anime ID with `useParams`, fetches and displays synopsis, episodes, score, studios, and an available trailer link, and handles loading, request failure, and unavailable anime.
+- [x] **Task 5: Build the anime detail view**
+  - Done when... the detail page reads the anime ID with `useParams`, immediately finds the matching local anime, and displays its image, synopsis, episodes, score, studios, and available trailer without making another request.
 
 - [ ] **Task 6: Implement Favorites / Watchlist**
   - Done when... users can add or remove anime from the catalog and detail page, see saved entries on the Favorites page, and retain the list after a reload using `localStorage`.

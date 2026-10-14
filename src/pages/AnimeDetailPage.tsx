@@ -1,53 +1,30 @@
-import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { fetchAnimeById } from '../services/animeApi'
-import type { Anime } from '../types/anime'
+import { getFallbackAnime } from '../services/animeApi'
 
 export function AnimeDetailPage() {
-  const { id } = useParams()
-  const [result, setResult] = useState<{
-    id: string
-    anime: Anime | null
-    error: string | null
-  } | null>(null)
+  const { id } = useParams<{ id: string }>()
+  const anime = getFallbackAnime().find(
+    (item) => String(item.mal_id || item.id) === id,
+  )
 
-  useEffect(() => {
-    let active = true
-
-    if (!id) return
-
-    Promise.resolve()
-      .then(() => fetchAnimeById(id))
-      .then((result) => {
-        if (active) setResult({ id, anime: result, error: null })
-      })
-      .catch((requestError: unknown) => {
-        if (active) {
-          setResult({
-            id,
-            anime: null,
-            error: requestError instanceof Error ? requestError.message : 'Unable to load this anime.',
-          })
-        }
-      })
-
-    return () => {
-      active = false
-    }
-  }, [id])
-
-  if (!id || !result || result.id !== id) {
-    return <p className="status-message" role="status">Loading anime details...</p>
+  if (!anime) {
+    return (
+      <section className="page-heading">
+        <p className="eyebrow">Anime details</p>
+        <h1>Anime not found</h1>
+        <p>This anime is not available in the local catalog.</p>
+        <Link className="primary-button" to="/">Back to explore</Link>
+      </section>
+    )
   }
-  if (result.error) return <p className="status-message error-message" role="alert">{result.error}</p>
-  const anime = result.anime
-  if (!anime) return <p className="status-message" role="alert">Anime not found.</p>
 
   return (
     <article className="detail-page">
       <Link className="back-link" to="/">← Back to explore</Link>
       <div className="detail-layout">
-        {anime.images.large && <img className="detail-image" src={anime.images.large} alt="" />}
+        {anime.images.large && (
+          <img className="detail-image" src={anime.images.large} alt={`${anime.title} poster`} />
+        )}
         <div>
           <p className="eyebrow">Anime details</p>
           <h1>{anime.title}</h1>

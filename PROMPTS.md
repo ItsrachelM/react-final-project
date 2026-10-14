@@ -70,3 +70,38 @@ Action note: Added typed Jikan fetch/search functions with normalized anime data
 > 2. Create component files for each page under `src/pages/` and a navigation bar component under `src/components/` using `Link` or `NavLink`.
 > 3. Update `tasks.md` to mark routing and basic page creation as done.
 > 4. Append a summary line to `PROMPTS.md`.
+
+**18:15 · copilot**
+
+> Please fix the "Failed to fetch" error in our anime API service (`src/services/animeApi.ts`):
+> 1. Add a small retry mechanism or delay between requests to handle Jikan API rate limits gracefully.
+> 2. Ensure that if the API fails, the application falls back or displays a clear error message with a working "Try again" button that successfully re-triggers the fetch.
+> 3. Update tasks.md and PROMPTS.md accordingly.
+
+Action note: Added a typed local popular-anime catalog as fallback for failed top-list and search requests, an offline detail fallback, and updated the offline-state criteria in `tasks.md`.
+
+Action note: Added request spacing and bounded retries for Jikan network/rate-limit/server failures, and wired Home, detail, and Statistics error states to retry their requests without reloading the page.
+
+**18:24 · copilot**
+
+> Please update the API service (`src/services/animeApi.ts`) to include a robust fallback mechanism:
+> 1. If the fetch to Jikan API fails (due to network issues, CORS, or rate limits), do not throw an unhandled error. Instead, catch it and gracefully fallback to a rich predefined local array of popular anime series (with id, title, synopsis, episodes, score, images, genres, studios).
+> 2. Ensure the UI receives these items successfully so the app loads, searches, filters, and displays the detail view (`/items/:id`) seamlessly without showing error states.
+> 3. Update tasks.md and PROMPTS.md accordingly.
+
+**18:27 · copilot**
+
+> Please check src/pages/HomePage.tsx and src/services/animeApi.ts to ensure:
+> 1. When the page loads, it immediately attempts to fetch anime from the Jikan API (`https://api.jikan.moe/v4/top/anime`).
+> 2. If the fetch fails or returns an error, it seamlessly falls back to local anime data so the UI displays the grid of anime cards right away without getting stuck on loading or error screens.
+> 3. Verify that the grid uses .map() with a unique `key` (e.g., anime.mal_id or id) and renders titles, images, and scores correctly.
+
+**18:44 · copilot**
+
+> Please completely fix the detail view and routing issue:
+> 1. In `src/pages/DetailPage.tsx` (or whatever the detail component is named), use `useParams<{ id: string }>()` to grab the id.
+> 2. Find the matching anime item instantly from our local mock/fallback list using `.find(item => String(item.mal_id || item.id) === id)`.
+> 3. Render the full details (title, synopsis, episodes, score, image) immediately without triggering any new network fetches.
+> 4. Update tasks.md and PROMPTS.md.
+
+Action note: Changed `/items/:id` to resolve details immediately from the local fallback catalog using the route ID, removed the detail fetch, and updated Task 5 criteria.

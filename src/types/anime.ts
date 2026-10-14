@@ -15,6 +15,7 @@ export interface AnimeStudio {
 
 export interface Anime {
   id: number
+  mal_id?: number
   title: string
   synopsis: string | null
   episodes: number | null

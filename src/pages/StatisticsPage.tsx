@@ -6,6 +6,7 @@ export function StatisticsPage() {
   const [anime, setAnime] = useState<Anime[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [requestVersion, setRequestVersion] = useState(0)
 
   useEffect(() => {
     let active = true
@@ -26,7 +27,7 @@ export function StatisticsPage() {
     return () => {
       active = false
     }
-  }, [])
+  }, [requestVersion])
 
   const scoredAnime = anime.filter((item) => item.score !== null)
   const averageScore = scoredAnime.length
@@ -47,7 +48,22 @@ export function StatisticsPage() {
         <p>Metrics summarize the currently loaded top anime results.</p>
       </div>
       {loading && <p className="status-message" role="status">Loading statistics...</p>}
-      {error && <p className="status-message error-message" role="alert">{error}</p>}
+      {error && (
+        <div className="status-message error-message" role="alert">
+          <p>{error}</p>
+          <button
+            className="secondary-button"
+            type="button"
+            onClick={() => {
+              setLoading(true)
+              setError(null)
+              setRequestVersion((version) => version + 1)
+            }}
+          >
+            Try again
+          </button>
+        </div>
+      )}
       {!loading && !error && (
         <>
           <div className="stats-grid">

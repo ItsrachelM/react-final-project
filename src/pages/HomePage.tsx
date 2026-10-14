@@ -1,19 +1,22 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimeCard } from '../components/AnimeCard'
-import { fetchTopAnime, searchAnime } from '../services/animeApi'
+import { fetchTopAnime, getFallbackAnime, searchAnime } from '../services/animeApi'
 import type { Anime } from '../types/anime'
 
 export function HomePage() {
-  const [anime, setAnime] = useState<Anime[]>([])
+  const [anime, setAnime] = useState<Anime[]>(getFallbackAnime)
   const [query, setQuery] = useState('')
   const [genreFilter, setGenreFilter] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [submittedQuery, setSubmittedQuery] = useState('')
+  const [requestVersion, setRequestVersion] = useState(0)
 
   useEffect(() => {
     let active = true
 
-    fetchTopAnime()
+    const request = submittedQuery ? searchAnime(submittedQuery) : fetchTopAnime()
+    request
       .then((results) => {
         if (active) setAnime(results)
       })
@@ -29,7 +32,7 @@ export function HomePage() {
     return () => {
       active = false
     }
-  }, [])
+  }, [requestVersion, submittedQuery])
 
   const genres = useMemo(
     () => [...new Set(anime.flatMap((item) => item.genres.map((genre) => genre.name)))].sort(),
@@ -39,20 +42,19 @@ export function HomePage() {
     ? anime.filter((item) => item.genres.some((genre) => genre.name === genreFilter))
     : anime
 
-  async function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+  function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setLoading(true)
     setError(null)
+    setSubmittedQuery(query.trim())
+    setGenreFilter('')
+    setRequestVersion((version) => version + 1)
+  }
 
-    try {
-      const results = query.trim() ? await searchAnime(query) : await fetchTopAnime()
-      setAnime(results)
-      setGenreFilter('')
-    } catch (requestError: unknown) {
-      setError(requestError instanceof Error ? requestError.message : 'Unable to search anime.')
-    } finally {
-      setLoading(false)
-    }
+  function handleRetry() {
+    setLoading(true)
+    setError(null)
+    setRequestVersion((version) => version + 1)
   }
 
   return (
@@ -89,22 +91,23 @@ export function HomePage() {
         </button>
       </form>
 
-      {loading && <p className="status-message" role="status">Loading anime...</p>}
+      {loading && anime.length === 0 && <p className="status-message" role="status">Loading anime...</p>}
+      {loading && anime.length > 0 && <p className="status-message" role="status">Refreshing anime catalog...</p>}
       {error && (
         <div className="status-message error-message" role="alert">
           <p>{error}</p>
-          <button className="secondary-button" type="button" onClick={() => window.location.reload()}>
+          <button className="secondary-button" type="button" onClick={handleRetry}>
             Try again
           </button>
         </div>
       )}
-      {!loading && !error && filteredAnime.length === 0 && (
-        <p className="status-message">No anime match your search and filters.</p>
-      )}
-      {!loading && !error && filteredAnime.length > 0 && (
+      {!error && filteredAnime.length > 0 && (
         <div className="anime-grid">
           {filteredAnime.map((item) => <AnimeCard key={item.id} anime={item} />)}
         </div>
+      )}
+      {!loading && !error && filteredAnime.length === 0 && (
+        <p className="status-message">No anime match your search and filters.</p>
       )}
     </section>
   )
