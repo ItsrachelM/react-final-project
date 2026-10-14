@@ -53,7 +53,7 @@ export function HomePage() {
     <section className="home-page">
       <div className="page-heading">
         <p className="eyebrow">Find your next series</p>
-        <h1>Anime explorer</h1>
+        <h1>Anime Explorer</h1>
         <p>Browse top anime, search the catalog, and explore each series.</p>
       </div>
 

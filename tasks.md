@@ -20,8 +20,8 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 - [x] **Task 6: Implement Favorites / Watchlist**
   - Done when... users can add or remove anime from the catalog and detail page, see saved entries on the Favorites page, and retain the list after a reload using `localStorage`.
 
-- [ ] **Task 7: Implement Statistics**
-  - Done when... the Statistics page presents genre and score summaries based on the loaded anime data and handles missing or empty values clearly.
+- [x] **Task 7: Implement Statistics**
+  - Done when... the Statistics page presents total series, average score, episode, and genre summaries, starts with local data while fetching, and handles missing or empty values clearly.
 
 - [x] **Task 8: Write unit tests with Vitest**
   - Done when... at least five unit tests pass, covering search, filters, or related reusable helper functions.
@@ -45,16 +45,26 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 
 - Added shared, persisted favorite state with safe `localStorage` parsing and a heart toggle on catalog cards and the detail page.
 - Replaced the Favorites placeholder with a saved-series grid and friendly empty state; added polished gradient surfaces, active navigation, card/button transitions, and responsive heart controls.
-- Statistics implementation (Task 7) remains next in task order.
+- Statistics implementation (Task 7) was completed in the Statistics fallback progress note below.
 
 ## Progress note — Anime dark theme
 
 - Switched the app to an always-on deep slate theme with light text, accessible violet accents, subtle background glows, and coordinated surfaces and borders.
 - Restyled shared navigation, cards, search controls, buttons, detail/stat panels, error messaging, and favorite/empty states so they remain readable on dark surfaces.
-- Task 7 (Statistics) remains next in the task list; this change covers global visual styling only.
+- Statistics was implemented after this theme progress note; this note covers global visual styling only.
 
 ## Progress note — Home responsive layout
 
 - Reduced the Home heading and search/filter toolbar spacing and arranged search, genre, and submit controls in a compact desktop row.
 - Added responsive catalog breakpoints: three columns for tablet widths, two columns on most phones, and a single-column layout on narrow phones with stacked controls.
 - Kept the Home layout changes scoped to its page; viewport rendering was not browser-verified in this change.
+
+## Progress note — Statistics fallback
+
+- Initialized Statistics with the local anime catalog so series, average score, total episodes, and genre metrics display immediately, including while the live request is pending.
+- Empty API responses no longer replace valid local data, and request failures leave the fallback metrics visible with a retry option.
+- Completed Task 7 with score, genre, series-count, episode-count, and empty-value handling.
+
+## Progress note — Anime Core branding
+
+- Updated the shared navigation brand and browser document title to Anime Core; restored the Home hero heading to Anime Explorer.
