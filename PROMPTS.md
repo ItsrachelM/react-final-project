@@ -55,4 +55,18 @@ Action note: Added Anime and Jikan response wrapper interfaces in `src/types/ani
 > 4. Update `tasks.md` to mark API service creation as done.
 > 5. Append a summary line to `PROMPTS.md`.
 
+Action note: Installed React Router and added shared navigation plus Home, detail, Favorites, Statistics, and not-found routes/pages; marked Task 3 done in `tasks.md`.
+
 Action note: Added typed Jikan fetch/search functions with normalized anime data and HTTP/response error handling in `src/services/animeApi.ts`, and marked Task 2 done in `tasks.md`.
+
+**18:10 · copilot**
+
+> Please set up React Router and the page components for our anime application.
+> 1. Install and set up `react-router-dom` in `src/App.tsx` (or layout wrapper) with routes:
+>    - `/` or `/home` -> Home / Master view (listing anime series with search/filter, loading/error states).
+>    - `/items/:id` -> Detail view for a specific anime (using `useParams` to fetch and display detailed info, with score, synopsis, episodes, etc.).
+>    - `/favorites` -> Favorites / Watchlist page.
+>    - `/statistics` -> Statistics / Overview page showing anime data metrics.
+> 2. Create component files for each page under `src/pages/` and a navigation bar component under `src/components/` using `Link` or `NavLink`.
+> 3. Update `tasks.md` to mark routing and basic page creation as done.
+> 4. Append a summary line to `PROMPTS.md`.

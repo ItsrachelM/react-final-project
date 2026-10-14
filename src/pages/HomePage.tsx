@@ -1,0 +1,111 @@
+import { useEffect, useMemo, useState } from 'react'
+import { AnimeCard } from '../components/AnimeCard'
+import { fetchTopAnime, searchAnime } from '../services/animeApi'
+import type { Anime } from '../types/anime'
+
+export function HomePage() {
+  const [anime, setAnime] = useState<Anime[]>([])
+  const [query, setQuery] = useState('')
+  const [genreFilter, setGenreFilter] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    let active = true
+
+    fetchTopAnime()
+      .then((results) => {
+        if (active) setAnime(results)
+      })
+      .catch((requestError: unknown) => {
+        if (active) {
+          setError(requestError instanceof Error ? requestError.message : 'Unable to load anime.')
+        }
+      })
+      .finally(() => {
+        if (active) setLoading(false)
+      })
+
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const genres = useMemo(
+    () => [...new Set(anime.flatMap((item) => item.genres.map((genre) => genre.name)))].sort(),
+    [anime],
+  )
+  const filteredAnime = genreFilter
+    ? anime.filter((item) => item.genres.some((genre) => genre.name === genreFilter))
+    : anime
+
+  async function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setLoading(true)
+    setError(null)
+
+    try {
+      const results = query.trim() ? await searchAnime(query) : await fetchTopAnime()
+      setAnime(results)
+      setGenreFilter('')
+    } catch (requestError: unknown) {
+      setError(requestError instanceof Error ? requestError.message : 'Unable to search anime.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <section>
+      <div className="page-heading">
+        <p className="eyebrow">Find your next series</p>
+        <h1>Anime explorer</h1>
+        <p>Browse top anime, search the catalog, and explore each series.</p>
+      </div>
+
+      <form className="catalog-controls" onSubmit={handleSearch}>
+        <label className="search-field">
+          <span>Search anime</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Try a title..."
+          />
+        </label>
+        <label>
+          <span>Genre</span>
+          <select value={genreFilter} onChange={(event) => setGenreFilter(event.target.value)}>
+            <option value="">All genres</option>
+            {genres.map((genre) => (
+              <option key={genre} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button className="primary-button" type="submit">
+          Search
+        </button>
+      </form>
+
+      {loading && <p className="status-message" role="status">Loading anime...</p>}
+      {error && (
+        <div className="status-message error-message" role="alert">
+          <p>{error}</p>
+          <button className="secondary-button" type="button" onClick={() => window.location.reload()}>
+            Try again
+          </button>
+        </div>
+      )}
+      {!loading && !error && filteredAnime.length === 0 && (
+        <p className="status-message">No anime match your search and filters.</p>
+      )}
+      {!loading && !error && filteredAnime.length > 0 && (
+        <div className="anime-grid">
+          {filteredAnime.map((item) => <AnimeCard key={item.id} anime={item} />)}
+        </div>
+      )}
+    </section>
+  )
+}

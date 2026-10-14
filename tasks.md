@@ -8,7 +8,7 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 - [x] **Task 2: Implement the Anime API service**
   - Done when... a service module fetches catalog and per-anime detail data from Jikan API v4, checks unsuccessful responses, and exposes useful errors to the UI.
 
-- [ ] **Task 3: Set up routes and shared layout**
+- [x] **Task 3: Set up routes and shared layout**
   - Done when... React Router renders a shared layout with navigation and working Home, `/items/:id`, Favorites / Watchlist, and Statistics routes, including sensible handling for an unknown route.
 
 - [ ] **Task 4: Build the master list view**
