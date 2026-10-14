@@ -5,7 +5,7 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 - [x] **Task 1: Set up Anime API types and interfaces**
   - Done when... TypeScript types describe the Jikan anime data used by the catalog, detail page, genres, studios, images, and optional fields without treating missing optional values as errors.
 
-- [ ] **Task 2: Implement the Anime API service**
+- [x] **Task 2: Implement the Anime API service**
   - Done when... a service module fetches catalog and per-anime detail data from Jikan API v4, checks unsuccessful responses, and exposes useful errors to the UI.
 
 - [ ] **Task 3: Set up routes and shared layout**

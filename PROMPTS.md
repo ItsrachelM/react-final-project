@@ -42,3 +42,17 @@
 > 3. Update PROMPTS.md with a brief note of this prompt and action.
 
 Action note: Added Anime and Jikan response wrapper interfaces in `src/types/anime.ts`, and marked Task 1 done in `tasks.md`.
+
+**18:06 · copilot**
+
+> Please create the API service for fetching anime data.
+> 1. Create `src/services/animeApi.ts` using native `fetch` to connect to the public Jikan API (https://api.jikan.moe/v4).
+> 2. Implement functions:
+>    - `fetchTopAnime(page?: number, limit?: number)`: Fetches top anime series.
+>    - `fetchAnimeById(id: string | number)`: Fetches detailed info for a single anime.
+>    - `searchAnime(query: string)`: Searches for anime by keyword.
+> 3. Handle HTTP errors gracefully and ensure TypeScript return types match our `Anime` interfaces without using `any`.
+> 4. Update `tasks.md` to mark API service creation as done.
+> 5. Append a summary line to `PROMPTS.md`.
+
+Action note: Added typed Jikan fetch/search functions with normalized anime data and HTTP/response error handling in `src/services/animeApi.ts`, and marked Task 2 done in `tasks.md`.
