@@ -50,7 +50,7 @@ export function HomePage() {
   }
 
   return (
-    <section>
+    <section className="home-page">
       <div className="page-heading">
         <p className="eyebrow">Find your next series</p>
         <h1>Anime explorer</h1>

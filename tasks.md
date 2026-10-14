@@ -52,3 +52,9 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 - Switched the app to an always-on deep slate theme with light text, accessible violet accents, subtle background glows, and coordinated surfaces and borders.
 - Restyled shared navigation, cards, search controls, buttons, detail/stat panels, error messaging, and favorite/empty states so they remain readable on dark surfaces.
 - Task 7 (Statistics) remains next in the task list; this change covers global visual styling only.
+
+## Progress note — Home responsive layout
+
+- Reduced the Home heading and search/filter toolbar spacing and arranged search, genre, and submit controls in a compact desktop row.
+- Added responsive catalog breakpoints: three columns for tablet widths, two columns on most phones, and a single-column layout on narrow phones with stacked controls.
+- Kept the Home layout changes scoped to its page; viewport rendering was not browser-verified in this change.

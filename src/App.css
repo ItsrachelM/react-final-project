@@ -1133,3 +1133,94 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Home catalog toolbar and responsive card grid. */
+.home-page .page-heading {
+  margin-bottom: 20px;
+}
+
+.home-page .page-heading h1 {
+  margin: 6px 0 8px;
+}
+
+.home-page .catalog-controls {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(150px, 220px) auto;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 12px;
+  border-radius: 16px;
+}
+
+.home-page .catalog-controls label {
+  min-width: 0;
+  gap: 4px;
+  font-size: 0.78rem;
+}
+
+.home-page .catalog-controls input,
+.home-page .catalog-controls select,
+.home-page .catalog-controls .primary-button {
+  min-height: 40px;
+}
+
+.home-page .catalog-controls .primary-button {
+  padding-inline: 20px;
+}
+
+.home-page .anime-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1023px) {
+  .home-page .anime-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page .page-heading {
+    margin-bottom: 16px;
+  }
+
+  .home-page .catalog-controls {
+    grid-template-columns: minmax(0, 1fr) minmax(130px, 0.7fr);
+    gap: 10px;
+    margin-bottom: 18px;
+    padding: 10px;
+  }
+
+  .home-page .catalog-controls .search-field {
+    grid-column: 1 / -1;
+  }
+
+  .home-page .catalog-controls .primary-button {
+    min-height: 40px;
+  }
+
+  .home-page .anime-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 479px) {
+  .home-page .catalog-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-page .catalog-controls .search-field {
+    grid-column: auto;
+  }
+
+  .home-page .catalog-controls .primary-button {
+    width: 100%;
+  }
+
+  .home-page .anime-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+}
