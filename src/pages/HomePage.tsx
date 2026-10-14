@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimeCard } from '../components/AnimeCard'
-import { fetchTopAnime, getFallbackAnime, searchAnime } from '../services/animeApi'
+import { fetchTopAnime, getFallbackAnime } from '../services/animeApi'
 import type { Anime } from '../types/anime'
-import { filterAnimeByGenre } from '../utils/animeFilters'
+import { filterAnime } from '../utils/animeFilters'
 
 export function HomePage() {
   const [anime, setAnime] = useState<Anime[]>(getFallbackAnime)
@@ -10,14 +10,12 @@ export function HomePage() {
   const [genreFilter, setGenreFilter] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [submittedQuery, setSubmittedQuery] = useState('')
   const [requestVersion, setRequestVersion] = useState(0)
 
   useEffect(() => {
     let active = true
 
-    const request = submittedQuery ? searchAnime(submittedQuery) : fetchTopAnime()
-    request
+    fetchTopAnime()
       .then((results) => {
         if (active) setAnime(results)
       })
@@ -33,21 +31,16 @@ export function HomePage() {
     return () => {
       active = false
     }
-  }, [requestVersion, submittedQuery])
+  }, [requestVersion])
 
   const genres = useMemo(
     () => [...new Set(anime.flatMap((item) => item.genres.map((genre) => genre.name)))].sort(),
     [anime],
   )
-  const filteredAnime = filterAnimeByGenre(anime, genreFilter)
+  const filteredAnime = filterAnime(anime, query, genreFilter)
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setLoading(true)
-    setError(null)
-    setSubmittedQuery(query.trim())
-    setGenreFilter('')
-    setRequestVersion((version) => version + 1)
   }
 
   function handleRetry() {

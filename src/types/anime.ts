@@ -1,6 +1,10 @@
 export interface AnimeImageSet {
   standard: string | null
   large: string | null
+  jpg?: {
+    image_url: string
+    large_image_url: string
+  }
 }
 
 export interface AnimeGenre {
@@ -17,6 +21,7 @@ export interface Anime {
   id: number
   mal_id?: number
   title: string
+  image_url?: string | null
   synopsis: string | null
   episodes: number | null
   score: number | null

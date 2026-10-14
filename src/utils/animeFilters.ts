@@ -8,7 +8,18 @@ export function filterAnimeBySearch(anime: Anime[], query: string): Anime[] {
 }
 
 export function filterAnimeByGenre(anime: Anime[], genreName: string): Anime[] {
-  if (!genreName) return anime
+  const normalizedGenre = genreName.trim().toLocaleLowerCase()
+  if (!normalizedGenre) return anime
 
-  return anime.filter((item) => item.genres.some((genre) => genre.name === genreName))
+  return anime.filter((item) =>
+    item.genres.some((genre) => genre.name.toLocaleLowerCase() === normalizedGenre),
+  )
+}
+
+export function filterAnime(
+  anime: Anime[],
+  query: string,
+  genreName: string,
+): Anime[] {
+  return filterAnimeByGenre(filterAnimeBySearch(anime, query), genreName)
 }

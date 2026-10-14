@@ -5,6 +5,7 @@ import { FavoritesPage } from './pages/FavoritesPage'
 import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { StatisticsPage } from './pages/StatisticsPage'
+import { FavoritesProvider } from './context/FavoritesContext'
 import './App.css'
 
 function AppLayout() {
@@ -28,7 +29,9 @@ function AppLayout() {
 function App() {
   return (
     <BrowserRouter>
-      <AppLayout />
+      <FavoritesProvider>
+        <AppLayout />
+      </FavoritesProvider>
     </BrowserRouter>
   )
 }

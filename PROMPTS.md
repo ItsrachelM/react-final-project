@@ -118,3 +118,23 @@ Action note: Changed `/items/:id` to resolve details immediately from the local 
 >    - Verifying proper data fallback or helper validation.
 >    - Checking data item structure (e.g., checking that score and ID are valid).
 > 3. Update tasks.md and PROMPTS.md accordingly.
+
+**18:51 · copilot**
+
+> Please style and enhance the UI/UX of our anime application to make it look modern, clean, and visually impressive:
+> 1. Update the styling (Tailwind CSS or CSS modules / custom styles) to use a sleek anime-themed dark/light palette with card shadows, smooth hover transitions, and clean typography.
+> 2. Enhance the Home/Master view grid so anime cards display neatly with high-quality posters, clean titles, score badges, and genre tags.
+> 3. Enhance the Detail View (`/items/:id`) to display a rich layout: large image poster, prominent score and episode badges, studios, genres, and a nicely formatted synopsis section in a clean card container.
+> 4. Update tasks.md and PROMPTS.md.
+
+Action note: Applied responsive light/dark anime styling, poster-forward catalog cards with score and genre badges, and a richer detail card with score/episode badges, studios, genres, and synopsis; marked Tasks 4 and 5 done.
+
+**18:59 · copilot**
+
+> Please fix all critical bugs in our anime application thoroughly:
+> 1. Search and Filtering Bug: Fix the search bar and genre filter logic in HomePage.tsx / state management so that typing a query or selecting a genre immediately and correctly filters the displayed anime list. Ensure state filtering is case-insensitive and handles empty states gracefully.
+> 2. Missing Images Bug: Ensure every anime object in both the API mapping and fallback data uses the correct image URL property (`images.jpg.large_image_url` or `images.jpg.image_url`), and verify that `<img src={...} alt={...} />` renders properly without falling back to placeholder text.
+> 3. Anime List Size: Ensure the app loads a rich, full list of popular anime items (at least 20+ items) rather than a truncated or tiny list, both from the Jikan API and the robust fallback data.
+> 4. Update tasks.md and PROMPTS.md.
+
+Action note: Made title and genre filtering immediate, case-insensitive, and composable; added 17 fallback anime for a 25-item offline catalog; ensured Jikan image URLs map from `images.jpg` with generated image fallback; cached fetched entries for local detail routing and added regression tests.
