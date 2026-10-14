@@ -78,6 +78,8 @@ Action note: Added typed Jikan fetch/search functions with normalized anime data
 > 2. Ensure that if the API fails, the application falls back or displays a clear error message with a working "Try again" button that successfully re-triggers the fetch.
 > 3. Update tasks.md and PROMPTS.md accordingly.
 
+Action note: Added Vitest configuration and a test script, extracted reusable anime search/genre filters, and added six passing unit tests for filtering and fallback data structure; marked Task 8 done.
+
 Action note: Added a typed local popular-anime catalog as fallback for failed top-list and search requests, an offline detail fallback, and updated the offline-state criteria in `tasks.md`.
 
 Action note: Added request spacing and bounded retries for Jikan network/rate-limit/server failures, and wired Home, detail, and Statistics error states to retry their requests without reloading the page.
@@ -105,3 +107,14 @@ Action note: Added request spacing and bounded retries for Jikan network/rate-li
 > 4. Update tasks.md and PROMPTS.md.
 
 Action note: Changed `/items/:id` to resolve details immediately from the local fallback catalog using the route ID, removed the detail fetch, and updated Task 5 criteria.
+
+**18:48 · copilot**
+
+> Please set up and write unit tests using Vitest for our anime application:
+> 1. Ensure Vitest is configured correctly in the project and `package.json` contains a test script (e.g., `"test": "vitest run"` or `"test:ui": "vitest --ui"`).
+> 2. Create a test file `src/tests/anime.test.ts` containing at least 5 passing unit tests for:
+>    - Filtering anime list by search query (title matching).
+>    - Filtering anime list by genre.
+>    - Verifying proper data fallback or helper validation.
+>    - Checking data item structure (e.g., checking that score and ID are valid).
+> 3. Update tasks.md and PROMPTS.md accordingly.

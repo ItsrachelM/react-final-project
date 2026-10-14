@@ -23,7 +23,7 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 - [ ] **Task 7: Implement Statistics**
   - Done when... the Statistics page presents genre and score summaries based on the loaded anime data and handles missing or empty values clearly.
 
-- [ ] **Task 8: Write unit tests with Vitest**
+- [x] **Task 8: Write unit tests with Vitest**
   - Done when... at least five unit tests pass, covering search, filters, or related reusable helper functions.
 
 - [ ] **Task 9: Verify the application**

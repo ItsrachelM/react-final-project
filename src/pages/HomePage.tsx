@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { AnimeCard } from '../components/AnimeCard'
 import { fetchTopAnime, getFallbackAnime, searchAnime } from '../services/animeApi'
 import type { Anime } from '../types/anime'
+import { filterAnimeByGenre } from '../utils/animeFilters'
 
 export function HomePage() {
   const [anime, setAnime] = useState<Anime[]>(getFallbackAnime)
@@ -38,9 +39,7 @@ export function HomePage() {
     () => [...new Set(anime.flatMap((item) => item.genres.map((genre) => genre.name)))].sort(),
     [anime],
   )
-  const filteredAnime = genreFilter
-    ? anime.filter((item) => item.genres.some((genre) => genre.name === genreFilter))
-    : anime
+  const filteredAnime = filterAnimeByGenre(anime, genreFilter)
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
