@@ -29,7 +29,7 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 - [ ] **Task 9: Verify the application**
   - Done when... unnecessary console logs are removed, `npm run build` passes, and `npm run dev` starts the app without errors and the main routes can be checked in the browser.
 
-- [ ] **Task 10: Finalize project documentation**
+- [x] **Task 10: Finalize project documentation**
   - Done when... `README.md` explains how to install, run, and test the application, and `PROMPTS.md` contains the latest project prompts and task progress notes required by the project instructions.
 
 ## Progress note — 2026-10-14
@@ -68,3 +68,8 @@ Complete the tasks in order. Check each item only after its **Done when...** cri
 ## Progress note — Anime Core branding
 
 - Updated the shared navigation brand and browser document title to Anime Core; restored the Home hero heading to Anime Explorer.
+
+## Progress note — Project README
+
+- Replaced the Vite starter README with Anime Explorer project documentation covering the app, Jikan API v4 and fallback, installation, development, production build, and unit testing commands.
+- Added the Vitest UI npm script so the documented `npm run test:ui` command is available.

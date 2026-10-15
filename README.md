@@ -1,32 +1,57 @@
-# React + TypeScript + Vite
+# Anime Explorer (Anime Core)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Anime Explorer is a master-detail anime catalog built with React and TypeScript. Browse series, search by title, filter by genre, open detailed series pages, save favorites across visits, and review catalog statistics such as average score, episode totals, and common genres.
 
-Currently, two official plugins are available:
+## Data source
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The application fetches public anime data from the [Jikan API](https://jikan.moe/), an unofficial REST API for MyAnimeList. It uses the Jikan API v4 top anime endpoint and falls back to a local anime catalog when the API is unavailable or returns no results, so the main catalog and statistics remain usable offline.
 
-## React Compiler
+## Requirements
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js and npm
 
-## Expanding the Oxlint configuration
+## Installation
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+From the project directory, install dependencies:
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Run the development server
+
+```sh
+npm run dev
+```
+
+Vite prints the local URL in the terminal after the server starts.
+
+## Production build
+
+```sh
+npm run build
+```
+
+This command runs the TypeScript project build and creates the production app in `dist/`.
+
+## Tests
+
+Run the Vitest unit tests once:
+
+```sh
+npm test
+```
+
+Open the interactive Vitest UI:
+
+```sh
+npm run test:ui
+```
+
+## Main features
+
+- Responsive anime catalog with title search and genre filtering.
+- Detail pages with series information, genres, studios, scores, episodes, and synopsis.
+- Favorites saved in browser local storage.
+- Statistics for the available catalog, including total series, average score, total episodes, and genre counts.
+- Local catalog fallback for API outages or empty responses.
